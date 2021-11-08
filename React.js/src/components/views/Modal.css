@@ -1,0 +1,14 @@
+.show {
+    display: block;
+    background-color: #000000cc;
+} 
+
+.modal-content {
+    min-height: 45rem;
+}
+
+.modal-body {
+    height: 85vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
