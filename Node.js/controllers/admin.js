@@ -1,5 +1,5 @@
 const mongodb = require('mongodb');
-const Product = require('../models/product');
+const User = require('../models/user');
 
 const ObjectId = mongodb.ObjectId;
 
@@ -11,20 +11,23 @@ exports.getAddProduct = (req, res, next) => {
     });
 };
 
-exports.postAddProduct = (req, res, next) => {
-    const title = req.body.title;
-    const imageUrl = req.body.imageUrl;
-    const price = req.body.price;
-    const description = req.body.description;
-    const product = new Product(title, price, description, imageUrl);
-    product.
-    save()
+exports.postAddUser = (req, res, next) => {
+    const name = req.body.name;
+    const lastName = req.body.lastName;
+    const email = req.body.email;
+    const password = req.body.password;
+    const birthday = req.body.birthday;
+    const gender = req.body.gender;
+    const user = new User(name, lastName, email, password, birthday, gender);
+    user.save()
         .then(result => {
-            console.log('Product created');
-            res.redirect('/');
+            console.log('User created');
+            res.json({result});
+            //res.redirect('/')
         })
         .catch(err => {
             console.log(err);
+            res.json({err});
         });
 };
 
@@ -33,18 +36,14 @@ exports.getEditProduct = (req, res, next) => {
     if (!editMode) {
         return res.redirect('/');
     }
-    const prodId = req.params.productId;
-    Product.findById(prodId)
-        .then(product => {
-            if (!product) {
-                return res.redirect('/');
+    const userId = req.params.userId;
+    User.findById(userId)
+        .then(user => {
+            if (!user) {
+                console.log('no se encontro')
             }
-            res.render('admin/edit-product', {
-                pageTitle: 'Edit Product',
-                path: '/admin/edit-product',
-                editing: editMode,
-                product: product
-            });
+            res.json("Producto editado")
+            
         });
 };
 
@@ -70,14 +69,10 @@ exports.postEditProduct = (req, res, next) => {
         });
 };
 
-exports.getProducts = (req, res, next) => {
-    Product.fetchAll()
-        .then(products => {
-            res.render('admin/products', {
-                prods: products,
-                pageTitle: 'Admin Products',
-                path: '/admin/products'
-            });
+exports.getUsers = (req, res, next) => {
+    User.fetchAll()
+        .then(users => {
+            res.json({users: users})
         });
 };
 

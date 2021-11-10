@@ -2,12 +2,14 @@ const mongodb = require('mongodb');
 const getDb = require('../util/database').getDb;
 
 
-class Product {
-    constructor(title, price, description, imageUrl, id) {
-        this.title = title;
-        this.price = price;
-        this.description = description;
-        this.imageUrl = imageUrl;
+class User {
+    constructor(name, lastName, email, password, birthday, gender ,id) {
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.birthday = birthday;
+        this.gender = gender;
         this._id = id;
     }
 
@@ -15,9 +17,9 @@ class Product {
         const db = getDb();
         let dbOp;
         if (this._id) {
-            dbOp = db.collection('products').updateOne({ _id: new mongodb.ObjectId(this._id) }, { $set: this });
+            dbOp = db.collection('users').updateOne({ _id: new mongodb.ObjectId(this._id) }, { $set: this });
         } else {
-            dbOp = db.collection('products').insertOne(this);
+            dbOp = db.collection('users').insertOne(this);
         }
         return dbOp
             .then(result => {
@@ -30,12 +32,12 @@ class Product {
 
     static fetchAll() {
         const db = getDb();
-        return db.collection('products')
+        return db.collection('users')
             .find()
             .toArray()
-            .then(products => {
-                console.log(products);
-                return products;
+            .then(users => {
+                //console.log(products);
+                return users;
             })
             .catch(err => {
                 console.log(err);
@@ -44,12 +46,12 @@ class Product {
 
     static findById(prodId) {
         const db = getDb();
-        return db.collection('products')
+        return db.collection('users')
             .find({ _id: new mongodb.ObjectId(prodId) })
             .next()
-            .then(product => {
-                console.log(product);
-                return product;
+            .then(user => {
+                //console.log(product);
+                return user;
             })
             .catch(err => {
                 console.log(err);
@@ -59,7 +61,7 @@ class Product {
     static deleteById(prodId) {
         const db = getDb();
         return db
-            .collection('products')
+            .collection('users')
             .deleteOne({ _id: new mongodb.ObjectId(prodId) })
             .then(result => {
                 console.log('Deleted');
@@ -71,4 +73,4 @@ class Product {
 
 };
 
-module.exports = Product;
+module.exports = User;
