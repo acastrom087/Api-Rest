@@ -22,16 +22,16 @@ exports.postAddUser = (req, res, next) => {
     user.save()
         .then(result => {
             console.log('User created');
-            res.json({result});
+            res.send(result);
             //res.redirect('/')
         })
         .catch(err => {
             console.log(err);
-            res.json({err});
+            res.send(err);
         });
 };
 
-exports.getEditProduct = (req, res, next) => {
+exports.getEditUser = (req, res, next) => {
     const editMode = req.query.edit;
     if (!editMode) {
         return res.redirect('/');
@@ -76,12 +76,11 @@ exports.getUsers = (req, res, next) => {
         });
 };
 
-exports.postDeleteProduct = (req, res, next) => {
-    const prodId = req.body.productId;
-    Product.deleteById(prodId)
+exports.postDeleteUser = (req, res, next) => {
+    const userId = req.body.id;
+    User.deleteById(userId)
         .then(() => {
             console.log('Deleted!');
-            res.redirect('/admin/products');
         })
         .catch(err => console.log(err));
 

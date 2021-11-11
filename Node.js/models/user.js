@@ -58,11 +58,11 @@ class User {
             })
     }
 
-    static deleteById(prodId) {
+    static deleteById(userId) {
         const db = getDb();
         return db
             .collection('users')
-            .deleteOne({ _id: new mongodb.ObjectId(prodId) })
+            .deleteOne({ _id: new mongodb.ObjectId(userId) })
             .then(result => {
                 console.log('Deleted');
             })
