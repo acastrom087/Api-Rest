@@ -13,14 +13,16 @@ const app = express();
 
 app.use(express.json());
 const userRoutes = require('./routes/user');
-//const shopRoutes = require('./routes/shop');
+const albumRoutes = require('./routes/album');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/user', userRoutes);
+app.use('/album', albumRoutes);
 
-//app.use(shopRoutes);
+
+
 
 app.use(errorController.get404);
 
