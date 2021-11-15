@@ -3,13 +3,6 @@ const User = require('../models/user');
 
 const ObjectId = mongodb.ObjectId;
 
-exports.getAddProduct = (req, res, next) => {
-    res.render('admin/edit-product', {
-        pageTitle: 'Add Product',
-        path: '/admin/add-product',
-        editing: false
-    });
-};
 
 exports.postAddUser = (req, res, next) => {
     const name = req.body.name;
@@ -23,7 +16,7 @@ exports.postAddUser = (req, res, next) => {
         .then(result => {
             console.log('User created');
             res.send(result);
-            //res.redirect('/')
+            //res.redirect('/' )
         })
         .catch(err => {
             console.log(err);
@@ -31,38 +24,40 @@ exports.postAddUser = (req, res, next) => {
         });
 };
 
-exports.getEditUser = (req, res, next) => {
-    const editMode = req.query.edit;
-    if (!editMode) {
-        return res.redirect('/');
-    }
+exports.getUser = (req, res, next) => {
     const userId = req.params.userId;
     User.findById(userId)
         .then(user => {
             if (!user) {
                 console.log('no se encontro')
             }
-            res.json("Producto editado")
+            res.json({user})
             
         });
 };
 
-exports.postEditProduct = (req, res, next) => {
-    const prodId = req.body.productId;
-    const updatedTitle = req.body.title;
-    const updatedPrice = req.body.price;
-    const updatedImageUrl = req.body.imageUrl;
-    const updatedDesc = req.body.description;
-    const updatedProduct = new Product(
-        updatedTitle,
-        updatedPrice,
-        updatedDesc,
-        updatedImageUrl,
-        new ObjectId(prodId)
+exports.postEditUser = (req, res, next) => {
+    const userId = req.body.id;
+    const updatedName = req.body.name;
+    const updatedLastName = req.body.lastName;
+    const updatedEmail = req.body.email;
+    const updatedPassword = req.body.password;
+    const updatedBirthday = req.body.birthday;
+    const updatedGender = req.body.gender;
+    const updatedUser = new User(
+        updatedName,
+        updatedLastName,
+        updatedEmail,
+        updatedPassword,
+        updatedBirthday,
+        updatedGender,
+        new ObjectId(userId)
     );
-    updatedProduct.save().then(result => {
+    updatedUser.save()
+        .then(result => {
+            res.json(result);
             console.log('Product updated');
-            res.redirect('/admin/products');
+            
         })
         .catch(err => {
             console.log(err);

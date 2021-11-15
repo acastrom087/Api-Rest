@@ -13,9 +13,9 @@ router.get('/users', userController.getUsers);
 // /admin/add-product => POST
 router.post('/add-user', userController.postAddUser);
 
-//router.get('/edit-product/:productId', userController.getEditProduct);
+router.get('/user/:userId', userController.getUser);
 
-//router.post('/edit-product', userController.postEditProduct);
+router.post('/edit-user', userController.postEditUser);
 
 router.post('/delete-user', userController.postDeleteUser);
 

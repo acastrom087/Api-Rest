@@ -1,5 +1,5 @@
 
-const json = require('express');
+
 const path = require('path');
 
 const express = require('express');
@@ -10,7 +10,6 @@ const mongoConnect = require('./util/database').mongoConnect;
 
 const app = express();
 
-app.set('view engine', 'ejs');
 
 app.use(express.json());
 const userRoutes = require('./routes/user');

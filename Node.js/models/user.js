@@ -23,9 +23,11 @@ class User {
         }
         return dbOp
             .then(result => {
+                return result;
                 console.log(result);
             })
             .catch(err => {
+                return err
                 console.log(err);
             });
     }
@@ -44,10 +46,10 @@ class User {
             })
     }
 
-    static findById(prodId) {
+    static findById(userId) {
         const db = getDb();
         return db.collection('users')
-            .find({ _id: new mongodb.ObjectId(prodId) })
+            .find({ _id: new mongodb.ObjectId(userId) })
             .next()
             .then(user => {
                 //console.log(product);
