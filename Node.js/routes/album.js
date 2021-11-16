@@ -9,7 +9,7 @@ router.get('/albums', albumController.getAlbums);
 
 router.post('/add-album', albumController.postAddAlbum);
 
-router.get('/album/:userId', albumController.getAlbums);
+router.get('/album/:userId', albumController.getUserAlbums);
 
 router.post('/edit-album', albumController.postEditAlbum);
 

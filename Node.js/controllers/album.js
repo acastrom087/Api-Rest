@@ -21,7 +21,7 @@ exports.postAddAlbum = (req, res, next) => {
         });
 };
 
-exports.getAlbums = (req, res, next) => {
+exports.getUserAlbums = (req, res, next) => {
     const userId = req.params.userId;
     Album.findById(userId)
         .then(album => {
@@ -36,8 +36,9 @@ exports.getAlbums = (req, res, next) => {
 exports.postEditAlbum = (req, res, next) => {
     const updateName = req.body.name;
     const updateDescription = req.body.description;
-    const albumId = req.body.albumID;
-    const updatedAlbum = new Album(updateName, updateDescription, albumId)
+    const updateUserId = req.body.userId;
+    const id = req.body.id
+    const updatedAlbum = new Album(updateName, updateUserId, updateDescription, new ObjectId(id))
     updatedAlbum.save()
         .then(result => {
             res.json(result);

@@ -43,11 +43,11 @@ class Album {
             })
     }
 
-    static findById(albumId) {
+    static findById(userId) {
         const db = getDb();
         return db.collection('albums')
-            .find({ _id: new mongodb.ObjectId(userId) })
-            .next()
+            .find({ userId: userId })
+            .toArray()
             .then(albums => {
                 //console.log(product);
                 return albums;
