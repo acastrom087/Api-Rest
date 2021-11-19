@@ -4,7 +4,7 @@ const Photo = require('../models/photo');
 const ObjectId = mongodb.ObjectId;
 
 
-exports.postAddAlbum = (req, res, next) => {
+exports.postAddPhoto = (req, res, next) => {
     const name = req.body.name;
     const albumId = req.body.albumId;
     const description = req.body.description;
@@ -13,7 +13,7 @@ exports.postAddAlbum = (req, res, next) => {
     photo.save()
         .then(result => {
             console.log('photo created');
-            res.send(result);
+            res.json(photo);
             
         })
         .catch(err => {

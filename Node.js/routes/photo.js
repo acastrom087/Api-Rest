@@ -5,7 +5,7 @@ const photoController = require('../controllers/photo');
 const router = express.Router();
 
 
-router.get('/photos', photoController.getAlbums);
+router.get('/photos', photoController.getPhotos);
 
 router.post('/add-photo', photoController.postAddPhoto);
 
