@@ -13,7 +13,7 @@ import Modal from './components/views/Modal';
 // Login, funciones del login y rutas;
 function App() {
 
-  const baseURL = "https://jsonplaceholder.typicode.com/users";
+  const baseURL = "http://localhost:3000/user/users";
   const [users, setUsers] = useState([]);
   const [loggedIn, setloggedIn] = useState(false);
 
@@ -31,15 +31,21 @@ function App() {
     var username = document.getElementById("usernameEmail").value;
     var password = document.getElementById("password").value;
     var user = null
+    if(user){
     users.map(u => {
-      if ((username === u.username || username === u.email) && password === u.address.zipcode) {
+      if ((username === u.name) && password === u.password) {
         user = u;
         localStorage.setItem("usuario", user.id)
         localStorage.setItem("nombre", user.name)
-        setloggedIn(true);
+        //setloggedIn(true);
+        console.log('logeado')
+
       }
       return (user);
-    })
+    })}
+    else{
+      alert("No hay usuarios")
+    }
   }
 
 
