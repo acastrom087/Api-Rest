@@ -14,14 +14,15 @@ import Modal from './components/views/Modal';
 function App() {
 
   const baseURL = "http://localhost:3000/user/users";
-  const [users, setUsers] = useState([]);
-  const [loggedIn, setloggedIn] = useState(false);
+  var [users, setUsers] = useState([]);
+  var [loggedIn, setloggedIn] = useState(false);
 
 
 
   useEffect(() => {
     axios.get(baseURL).then(response => {
-      setUsers(response.data);
+      setUsers(response.data.users);
+      
     })
   }, []);
 
@@ -31,21 +32,17 @@ function App() {
     var username = document.getElementById("usernameEmail").value;
     var password = document.getElementById("password").value;
     var user = null
-    if(user){
     users.map(u => {
       if ((username === u.name) && password === u.password) {
         user = u;
-        localStorage.setItem("usuario", user.id)
+        localStorage.setItem("usuario", user._id)
         localStorage.setItem("nombre", user.name)
-        //setloggedIn(true);
-        console.log('logeado')
+        setloggedIn(true);
+        console.log(user._id)
 
       }
       return (user);
-    })}
-    else{
-      alert("No hay usuarios")
-    }
+    })
   }
 
 

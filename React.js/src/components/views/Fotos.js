@@ -13,10 +13,10 @@ function Fotos(props) {
 
     const { id } = useParams();
     useEffect(() => {
-        axios.get("https://jsonplaceholder.typicode.com/photos?albumId=" + id)
+        axios.get('http://localhost:3000/photo/photo/' + id)
             .then((response) => {
-                setPhotos(response.data);
-                setAllData(response.data);
+                setPhotos(response.data.photos);
+                setAllData(response.data.photos);
                 
             });
     },[])
@@ -65,9 +65,9 @@ function Fotos(props) {
                 <tbody>
                     {photos.map((value) => {
                         return (
-                            <tr key={value.id}>
-                                <td>{value.title}</td>
-                                <td><img src={value.thumbnailUrl}/></td>
+                            <tr key={value._id}>
+                                <td>{value.name}</td>
+                                <td><img src={value.url}/></td>
                                 <td><button onClick={()=>verModal(value.url)}  className="btn btn-primary">Ver Foto</button></td>
                                 
                             </tr>

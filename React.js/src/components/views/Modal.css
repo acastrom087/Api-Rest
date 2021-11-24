@@ -12,3 +12,11 @@
     overflow-x: hidden;
     overflow-y: scroll;
 }
+
+label{
+    align-items: left;
+}
+
+.close{
+    margin-bottom: 1rem;
+}
