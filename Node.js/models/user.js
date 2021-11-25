@@ -52,7 +52,6 @@ class User {
             .find({ _id: new mongodb.ObjectId(userId) })
             .next()
             .then(user => {
-                //console.log(product);
                 return user;
             })
             .catch(err => {
@@ -62,8 +61,7 @@ class User {
 
     static deleteById(userId) {
         const db = getDb();
-        return db
-            .collection('users')
+        return db.collection('users')
             .deleteOne({ _id: new mongodb.ObjectId(userId) })
             .then(result => {
                 console.log('Deleted');
@@ -72,6 +70,17 @@ class User {
                 console.log(err);
             });
     }
+
+    static find(data) {
+        const db = getDb();
+        return db.collection('users')
+            .find(data)
+            .next()
+            .then(user => {
+                // console.log(user);
+                return user;
+            });
+    };
 
 };
 
