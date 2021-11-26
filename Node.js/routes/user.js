@@ -16,4 +16,7 @@ router.post('/edit-user', userController.postEditUser);
 
 router.post('/delete-user', userController.postDeleteUser);
 
+//Prueba endpoint de login con JWT
+router.post('/login', userController.loginUser);
+
 module.exports = router;
