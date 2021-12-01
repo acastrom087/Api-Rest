@@ -13,41 +13,6 @@ import Modal from './components/views/Modal';
 // Login, funciones del login y rutas;
 function App() {
 
-  const baseURL = "http://localhost:3000/user/users";
-  var [users, setUsers] = useState([]);
-  var [loggedIn, setloggedIn] = useState(false);
-
-
-
-  useEffect(() => {
-    axios.get(baseURL).then(response => {
-      setUsers(response.data.users);
-      
-    })
-  }, []);
-
-
-
-  const validacion = () => {
-    var log = false;
-    var username = document.getElementById("usernameEmail").value;
-    var password = document.getElementById("password").value;
-    var user = null
-    users.map(u => {
-      if ((username === u.name) && password === u.password) {
-        user = u;
-        localStorage.setItem("usuario", user._id)
-        localStorage.setItem("nombre", user.name)
-        setloggedIn(true);
-        log = true;
-
-      }
-    })
-    if(!log){
-      alert('User or password incorrect')
-    }
-  }
-
 
 
   return (

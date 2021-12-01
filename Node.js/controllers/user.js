@@ -22,7 +22,7 @@ exports.postAddUser = (req, res, next) => {
             user.save()
                 .then(user => {
                     console.log('User created');
-                    res.json({token: jwt.createToken(user)});
+                    //res.json({token: jwt.createToken(user)});
                     //res.redirect('/' )
                 })
                 .catch(err => {

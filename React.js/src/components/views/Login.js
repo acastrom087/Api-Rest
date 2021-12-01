@@ -33,6 +33,7 @@ function Login(props) {
   
     const validacion = () => {
       var log = false;
+      //console.log(users)
       var username = document.getElementById("usernameEmail").value;
       var password = document.getElementById("password").value;
       var user = null

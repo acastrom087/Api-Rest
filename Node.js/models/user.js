@@ -74,7 +74,7 @@ class User {
     static find(data) {
         const db = getDb();
         return db.collection('users')
-            .find(data)
+            .find({email: data})
             .next()
             .then(user => {
                 // console.log(user);
