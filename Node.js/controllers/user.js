@@ -1,5 +1,8 @@
+const { json } = require('body-parser');
 const mongodb = require('mongodb');
 const User = require('../models/user');
+const bcryptjs = require('bcryptjs');
+const jwt = require('../util/jwt');
 
 const ObjectId = mongodb.ObjectId;
 
@@ -11,17 +14,23 @@ exports.postAddUser = (req, res, next) => {
     const password = req.body.password;
     const birthday = req.body.birthday;
     const gender = req.body.gender;
-    const user = new User(name, lastName, email, password, birthday, gender);
-    user.save()
-        .then(result => {
-            console.log('User created');
-            res.send(result);
-            //res.redirect('/' )
-        })
-        .catch(err => {
-            console.log(err);
-            res.send(err);
-        });
+    bcryptjs.hash(password, 10, (e, hash) => {
+        if (e) {
+            res.json({e});
+        } else {
+            const user = new User(name, lastName, email, hash, birthday, gender);
+            user.save()
+                .then(user => {
+                    console.log('User created');
+                    res.json({token: jwt.createToken(user)});
+                    //res.redirect('/' )
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.send(err);
+                });
+        }
+    })
 };
 
 exports.getUser = (req, res, next) => {
@@ -54,14 +63,14 @@ exports.postEditUser = (req, res, next) => {
         new ObjectId(userId)
     );
     updatedUser.save()
-        .then(result => {
-            res.json(result);
-            console.log('Product updated');
-            
+        .then(user => {
+            console.log('User updated');
+            res.json({token: jwt.createToken(user)});
         })
         .catch(err => {
             console.log(err);
         });
+    
 };
 
 exports.getUsers = (req, res, next) => {
@@ -79,4 +88,29 @@ exports.postDeleteUser = (req, res, next) => {
         })
         .catch(err => console.log(err));
 
+};
+
+exports.loginUser = (req, res) => {
+    User.find(req.body.email)
+    .then(user => {
+        if (!user) {
+            res.json({error: 'Incorrect Credential'});
+            
+        } else {
+            bcryptjs.compare(req.body.password, user.password, function(e, match) {
+                if (e) {
+                    console.log();
+                    res.json({e: 'Password Required'});
+                } else if (match) {
+                    res.json({token: jwt.createToken(user)});
+                } else {
+                    res.json({error: 'Incorrect Credential'});
+                }
+            });
+        }
+    })
+    .catch(e => {
+        res.json({e});
+    });
+    
 };
