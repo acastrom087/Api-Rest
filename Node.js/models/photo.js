@@ -25,7 +25,6 @@ class Photo {
                 
             })
             .catch(err => {
-                console.log("ERROR")
                 return err
             });
     }
@@ -64,10 +63,10 @@ class Photo {
             .collection('photos')
             .deleteOne({ _id: new mongodb.ObjectId(id) })
             .then(result => {
-                console.log('Deleted');
+                return result;
             })
             .catch(err => {
-                console.log(err);
+                return err;
             });
     }
 }

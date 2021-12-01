@@ -63,10 +63,10 @@ class Album {
             .collection('albums')
             .deleteOne({ _id: new mongodb.ObjectId(albumId) })
             .then(result => {
-                console.log('Deleted');
+                return result;
             })
             .catch(err => {
-                console.log(err);
+                return err;
             });
     }
 }

@@ -1,64 +1,83 @@
-import {useState} from 'react';
 import axios from 'axios';
 import './Modal.css'
+import sweet from "sweetalert";
 function CreateAlbum(props) {
 
-    var [album, setAlbum] = useState({
-        name:'',
-        userId: '',
-        description: ''
-    })
-    const apiUrl = 'http://localhost:3000/album/add-album';
-    
-    const save= ()=> {
-        const id = localStorage.getItem('usuario')
-        var name = document.getElementById('nombre').value;
-        var description = document.getElementById('description').value;
-        console.log(id,name,description)
-        setAlbum({
-            ...album,
-            name: name,
-            userId: id,
-            description: description
-        })
-        console.log(album);
-        axios.post(apiUrl,album).then(response =>{
-            console.log(response)
-        })
-        .catch(error => console.log(error))
-        
-        
-    }
 
-    return(
+    var apiUrl = '';
+    var message = '';
+
+    const Save = () => {
+        let album = {}
+        if (props.album) {
+            console.log(props.album)
+            const userId = props.album.userId;
+            const id = props.album._id;
+            var name = document.getElementById("name").value;
+            var description = document.getElementById("description").value;
+            apiUrl = 'http://localhost:3000/album/edit-album';
+            message = 'Album edited';
+            album = {
+                name: name,
+                userId: userId,
+                description: description,
+                id: id
+            }
+        } else {
+            const id = localStorage.getItem('usuario')
+            var name = document.getElementById("name").value;
+            var description = document.getElementById("description").value;
+            apiUrl = 'http://localhost:3000/album/add-album';
+            message = 'Album created'
+            album = {
+                name: name,
+                userId: id,
+                description: description
+            }
+        }
+
+        axios.post(apiUrl, album)
+            .then(response => {
+                mensaje(message, 'success')
+                props.closeModal()
+            })
+            .catch(error => console.log(error))
+
+    }
+    const mensaje = (title, type) => {
+        sweet({
+            'title': title,
+            'icon': type
+        })
+    }
+    console.log(props.album)
+
+    return (
         <div className="modal fade show" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div className="modal-dialog modal-lg">
-            <div className="modal-content">
-                <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLabel">Photo</h5>
-                    <button type="button" className="close" onClick={props.closeModal}   data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div className="modal-body">
-                <div className="form-group">
-                    <label htmlFor="id">ID</label>
+            <div className="modal-dialog modal-lg">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">CreateAlbum</h5>
+                        <button type="button" className="close" onClick={props.closeModal} data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div className="modal-body">
+                        <div className="form-group">
+                            {/* <label htmlFor="id">ID</label>
                     <input className="form-control" type="text" name="id" id="id" />
-                    <br />
-                    <label htmlFor="nombre">Nombre</label>
-                    <input className="form-control" type="text" name="nombre" id="nombre" />
-                    <br />
-                    <label htmlFor="nombre">Description</label>
-                    <input className="form-control" type="text" name="description" id="description" />
-                    <br />
-                    <label htmlFor="capital_bursatil">Url</label>
-                    <input className="form-control" type="text" name="url" id="url" />
-                  </div>
-                  <button className="btn btn-primary" onClick={save} >Add</button>
+                    <br /> */}
+                            <label htmlFor="nombre">Nombre</label>
+                            <input className="form-control" type="text" name="name" id="name" defaultValue={props.album ? props.album.name : ''} />
+                            <br />
+                            <label htmlFor="nombre">Description</label>
+                            <input className="form-control" type="text" name="description" id="description" defaultValue={props.album ? props.album.description : ''} />
+                        </div>
+                        <button className="btn btn-primary" onClick={Save} >Add</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     )
 }
-export default  CreateAlbum;
+export default CreateAlbum;

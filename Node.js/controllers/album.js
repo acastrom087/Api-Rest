@@ -9,10 +9,11 @@ exports.postAddAlbum = (req, res, next) => {
     const userId = req.body.userId;
     const description = req.body.description;
     const album = new Album(name, userId, description);
+    console.log(req.body);
     album.save()
         .then(result => {
             console.log('album created');
-            res.send(result);
+            res.send(album);
             
         })
         .catch(err => {
@@ -60,9 +61,9 @@ exports.getAlbums = (req, res, next) => {
 exports.postDeleteAlbum = (req, res, next) => {
     const albumId = req.body.albumId;
     Album.deleteById(albumId)
-        .then(() => {
-            console.log('Deleted!');
+        .then(response => {
+            res.json(response);
         })
-        .catch(err => console.log(err));
+        .catch(err => res.json(err));
 
 };

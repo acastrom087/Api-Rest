@@ -40,11 +40,12 @@ exports.postEditPhoto = (req, res, next) => {
     const updateDescription = req.body.description;
     const updateUrl = req.body.url;
     const id = req.body.id
-    const updatedPhoto = new Album(updateName, updateAlbumId, updateDescription, updateUrl, new ObjectId(id))
+    const updatedPhoto = new Photo(updateName, updateAlbumId, updateDescription, updateUrl, new ObjectId(id))
+    console.log(updatedPhoto)
     updatedPhoto.save()
         .then(result => {
             res.json(result);
-            console.log('Photo updated');
+            console.log(result);
             
         })
         .catch(err => {
@@ -62,9 +63,11 @@ exports.getPhotos = (req, res, next) => {
 exports.postDeletePhoto = (req, res, next) => {
     const id = req.body.id;
     Photo.deleteById(id)
-        .then(() => {
-            console.log('Deleted!');
+        .then(response => {
+            res.json(response);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            res.json(err);
+        });
 
 };

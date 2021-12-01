@@ -1,11 +1,65 @@
+import CreateUser from './CreateUser';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import sweet from "sweetalert";
 
 function Login(props) {
-    
-    function prueba (){
-        console.log('prueba');
+   
+    const baseURL = "http://localhost:3000/user/users";
+    var [users, setUsers] = useState([]);
+    var [modal, setModal] = useState(false);
+    let history = useHistory();
+  
+  
+    useEffect(() => {
+      axios.get(baseURL).then(response => {
+        setUsers(response.data.users);
+        
+      })
+    }, []);
+  
+    const showModal=()=> {
+        setModal(true);
     }
 
+    const closeModal=()=> {
+      axios.get(baseURL).then(response => {
+        setUsers(response.data.users);
+        
+      })
+        setModal(false);
+    }
+  
+    const validacion = () => {
+      var log = false;
+      var username = document.getElementById("usernameEmail").value;
+      var password = document.getElementById("password").value;
+      var user = null
+      users.map(u => {
+        if ((username === u.name) && password === u.password) {
+          user = u;
+          localStorage.setItem("usuario", user._id)
+          localStorage.setItem("nombre", user.name)
+          log = true;
+          history.push({pathname: '/home', user: u});
+        }
+      })
+      if(!log){
+        mensaje('Password or user incorrect','error')
+      }
+    }
+    
+    const mensaje = (title,type)=> {
+      sweet({'title': title,
+              'icon': type,
+              })
+  }
+
+
     return(
+        <React.Fragment>
+        {modal && <CreateUser closeModal={closeModal}/>}
         <div>
         <div className="container">
             <header>
@@ -19,12 +73,13 @@ function Login(props) {
                     <div className="form-group p-2">
                         <input type="password" className="form-control" id="password" placeholder="Password"></input>
                     </div>
-                    <button className="btn btn-primary" onClick={props.loguear}>Ingresar</button>
-                        <p onClick={prueba}>Sing up</p>
+                    <button className="btn btn-primary" onClick={validacion}>Ingresar</button>
+                        <p onClick={showModal}>Sing up</p>
                 </div>
             </div>
         </div>
         </div>
+        </React.Fragment>
     )
 }
 

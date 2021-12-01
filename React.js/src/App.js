@@ -5,7 +5,7 @@ import axios from 'axios';
 import Home from './components/views/Home';
 import Login from './components/views/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Fotos from './components/views/Fotos';
+import Foto from './components/views/Foto';
 import Modal from './components/views/Modal';
 
 
@@ -29,6 +29,7 @@ function App() {
 
 
   const validacion = () => {
+    var log = false;
     var username = document.getElementById("usernameEmail").value;
     var password = document.getElementById("password").value;
     var user = null
@@ -38,11 +39,13 @@ function App() {
         localStorage.setItem("usuario", user._id)
         localStorage.setItem("nombre", user.name)
         setloggedIn(true);
-        console.log(user._id)
+        log = true;
 
       }
-      return (user);
     })
+    if(!log){
+      alert('User or password incorrect')
+    }
   }
 
 
@@ -52,11 +55,9 @@ function App() {
       <Router>
         <div>
           <Switch>
-            <Route exact path="/">
-              {loggedIn ? <Redirect to="/home" /> : <Login loguear={validacion} />}
-            </Route>
+            <Route exact path="/" component={Login} />
             <Route exact path="/home" component={Home} />
-            <Route exact path="/fotos/:id" component={Fotos} />
+            <Route exact path="/foto/:id" component={Foto} />
             <Route exact path="/mobal/:id" component={Modal} />
             <Route render={() => <h1>Not found!</h1>} />
           </Switch>
