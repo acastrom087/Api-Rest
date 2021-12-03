@@ -93,6 +93,7 @@ exports.postDeleteUser = (req, res, next) => {
 exports.loginUser = (req, res) => {
     User.find(req.body.email)
     .then(user => {
+        console.log(user)
         if (!user) {
             res.json({error: 'Incorrect Credential'});
             
