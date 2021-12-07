@@ -24,7 +24,8 @@ function Foto(props) {
                 setPhotos(response.data.photos);
                 setAllData(response.data.photos);
 
-            });
+            })
+            .catch((err) => mensaje('Error', 'error'));
     }
 
     useEffect(() => {
@@ -64,7 +65,7 @@ function Foto(props) {
         .then(response =>{ console.log('Eliminado') 
                 sweet('Deleted Photo','', 'success');
                 cargarPhotos()})
-        .catch(err => console.log('Error'))
+        .catch(err => mensaje('Error', 'error'))
 
     }
     const message=(id)=> {
@@ -79,6 +80,11 @@ function Foto(props) {
              eliminar(id)
          })
     }   
+    const mensaje = (title,type)=> {
+        sweet({'title': title,
+                'icon': type,
+                })
+    }
 
     return (
         <React.Fragment>

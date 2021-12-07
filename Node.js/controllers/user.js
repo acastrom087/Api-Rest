@@ -21,13 +21,12 @@ exports.postAddUser = (req, res, next) => {
             const user = new User(name, lastName, email, hash, birthday, gender);
             user.save()
                 .then(user => {
-                    console.log('User created');
-                    //res.json({token: jwt.createToken(user)});
-                    //res.redirect('/' )
+                    res.json(user);
+                    
                 })
                 .catch(err => {
                     console.log(err);
-                    res.send(err);
+                    res.json(err);
                 });
         }
     })
@@ -38,7 +37,7 @@ exports.getUser = (req, res, next) => {
     User.findById(userId)
         .then(user => {
             if (!user) {
-                console.log('no se encontro')
+                res.json({error: 'User not found'})
             }
             res.json({user})
             
@@ -68,7 +67,7 @@ exports.postEditUser = (req, res, next) => {
             res.json({token: jwt.createToken(user)});
         })
         .catch(err => {
-            console.log(err);
+            res.json(err);
         });
     
 };
@@ -77,7 +76,9 @@ exports.getUsers = (req, res, next) => {
     User.fetchAll()
         .then(users => {
             res.json({users: users})
-        });
+        })
+        .catch(err => {res.json({err:'Usuarios no encontrados'})});
+        
 };
 
 exports.postDeleteUser = (req, res, next) => {
@@ -86,7 +87,7 @@ exports.postDeleteUser = (req, res, next) => {
         .then(() => {
             console.log('Deleted!');
         })
-        .catch(err => console.log(err));
+        .catch(err => res.json({ err: 'Error al eliminar' }));
 
 };
 

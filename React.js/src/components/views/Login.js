@@ -3,12 +3,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import sweet from "sweetalert";
+import Mail from './Mail'
 
 function Login(props) {
    
     const baseURL = "http://localhost:3000/user/users";
     var [users, setUsers] = useState([]);
     var [modal, setModal] = useState(false);
+    var [mail, setMail] = useState(false);
     let history = useHistory();
   
   
@@ -29,6 +31,14 @@ function Login(props) {
         
       })
         setModal(false);
+    }
+
+    const showMail=()=> {
+      setMail(true);
+    }
+
+    const closeMail=()=> {
+      setMail(false);
     }
   
     const validacion = () => {
@@ -60,6 +70,7 @@ function Login(props) {
 
     return(
         <React.Fragment>
+          {mail && <Mail closeModal= {closeMail} />}
         {modal && <CreateUser closeModal={closeModal}/>}
         <div>
         <div className="container">
@@ -76,6 +87,7 @@ function Login(props) {
                     </div>
                     <button className="btn btn-primary" onClick={validacion}>Ingresar</button>
                         <p onClick={showModal}>Sing up</p>
+                        <p onClick={showMail} >Recuperar contraseña</p>
                 </div>
             </div>
         </div>

@@ -31,7 +31,7 @@ function EditUser(props) {
                 props.closeModal()
             })
             .catch(error =>{
-                alert(error.message)
+                mensaje('Error', 'error')
             })
         }
 

@@ -45,7 +45,7 @@ function CreatePhoto(props) {
                 mensaje(message, 'success');
                 props.closeModal()
             })
-            .catch(error => { console.log(error) })
+            .catch(error => mensaje('Error', 'error'))
     }
 
     const mensaje = (title, type) => {

@@ -39,7 +39,7 @@ class Photo {
                 return photos;
             })
             .catch(err => {
-                console.log(err);
+                return err
             })
     }
 
@@ -53,7 +53,7 @@ class Photo {
                 return photos;
             })
             .catch(err => {
-                console.log(err);
+                return err
             })
     }
 

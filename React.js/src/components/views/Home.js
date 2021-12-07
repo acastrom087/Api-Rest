@@ -40,7 +40,7 @@ function Home(props) {
                 sweet('Album deleted','','success')
                 cargarAlbum();
             })
-            .catch(err => { console.log(err) })
+            .catch(err => mensaje('Error', 'error'))
     }
 
     const handleFilter = (event) => {
@@ -80,6 +80,12 @@ function Home(props) {
 
     const closeEditUser =()=>{
         setEditUser(false);
+    }
+    
+    const mensaje = (title,type)=> {
+        sweet({'title': title,
+                'icon': type,
+                })
     }
     
 

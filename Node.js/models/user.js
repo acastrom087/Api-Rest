@@ -24,11 +24,11 @@ class User {
         return dbOp
             .then(result => {
                 return result;
-                console.log(result);
+                
             })
             .catch(err => {
                 return err
-                console.log(err);
+                
             });
     }
 
@@ -42,7 +42,7 @@ class User {
                 return users;
             })
             .catch(err => {
-                console.log(err);
+                return err
             })
     }
 
@@ -55,7 +55,20 @@ class User {
                 return user;
             })
             .catch(err => {
-                console.log(err);
+                return err
+            })
+    }
+
+    static findByEmail(email) {
+        const db = getDb();
+        return db.collection('users')
+            .find({ email: email })
+            .next()
+            .then(user => {
+                return user;
+            })
+            .catch(err => {
+                return err;
             })
     }
 
@@ -77,9 +90,8 @@ class User {
             .find({email: data})
             .next()
             .then(user => {
-                // console.log(user);
                 return user;
-            });
+            })
     };
 
 };

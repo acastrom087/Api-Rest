@@ -18,7 +18,7 @@ exports.postAddPhoto = (req, res, next) => {
         })
         .catch(err => {
             console.log(err);
-            res.send("error fatal");
+            res.send("Error fatal");
         });
 };
 
@@ -27,7 +27,7 @@ exports.getAlbumPhotos = (req, res, next) => {
     Photo.findById(albumId)
         .then(photos => {
             if (!photos) {
-                console.log('no se encontro')
+                res.json('Error')
             }
             res.json({photos})
             
@@ -45,11 +45,11 @@ exports.postEditPhoto = (req, res, next) => {
     updatedPhoto.save()
         .then(result => {
             res.json(result);
-            console.log(result);
+            
             
         })
         .catch(err => {
-            console.log(err);
+            res.json('Error');
         });
 };
 
@@ -57,7 +57,8 @@ exports.getPhotos = (req, res, next) => {
     Photo.fetchAll()
         .then(albums => {
             res.json({albums: albums})
-        });
+        })
+        .catch(err => {res.json('Error')});
 };
 
 exports.postDeletePhoto = (req, res, next) => {
@@ -67,7 +68,7 @@ exports.postDeletePhoto = (req, res, next) => {
             res.json(response);
         })
         .catch(err => {
-            res.json(err);
+            res.json('Error');
         });
 
 };

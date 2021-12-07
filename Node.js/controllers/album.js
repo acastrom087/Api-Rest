@@ -17,8 +17,7 @@ exports.postAddAlbum = (req, res, next) => {
             
         })
         .catch(err => {
-            console.log(err);
-            res.send("error fatal");
+            res.send("Error fatal");
         });
 };
 
@@ -27,7 +26,7 @@ exports.getUserAlbums = (req, res, next) => {
     Album.findById(userId)
         .then(album => {
             if (!album) {
-                console.log('no se encontro')
+                res.json('No se encontro')
             }
             res.json({album})
             
@@ -47,7 +46,7 @@ exports.postEditAlbum = (req, res, next) => {
             
         })
         .catch(err => {
-            console.log(err);
+            res.json( 'Error')
         });
 };
 
@@ -55,7 +54,8 @@ exports.getAlbums = (req, res, next) => {
     Album.fetchAll()
         .then(albums => {
             res.json({albums: albums})
-        });
+        })
+        .catch(err=> res.json('Error'));
 };
 
 exports.postDeleteAlbum = (req, res, next) => {
@@ -64,6 +64,6 @@ exports.postDeleteAlbum = (req, res, next) => {
         .then(response => {
             res.json(response);
         })
-        .catch(err => res.json(err));
+        .catch(err => res.json('Error'));
 
 };

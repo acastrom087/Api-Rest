@@ -24,7 +24,6 @@ class Album {
                 
             })
             .catch(err => {
-                console.log("ERROR")
                 return err
             });
     }
@@ -39,7 +38,7 @@ class Album {
                 return albums;
             })
             .catch(err => {
-                console.log(err);
+                return err
             })
     }
 
@@ -53,7 +52,7 @@ class Album {
                 return albums;
             })
             .catch(err => {
-                console.log(err);
+                return err
             })
     }
 

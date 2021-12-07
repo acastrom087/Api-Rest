@@ -14,6 +14,7 @@ const cors = require('cors');
 
 app.use(express.json());
 app.use(cors());
+const mailRoute = require('./routes/mail')
 const userRoutes = require('./routes/user');
 const albumRoutes = require('./routes/album');
 const photoRoutes = require('./routes/photo');
@@ -21,6 +22,7 @@ const photoRoutes = require('./routes/photo');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/mail', mailRoute);
 app.use('/user', userRoutes);
 app.use('/album', albumRoutes);
 app.use('/photo', photoRoutes);
