@@ -3,6 +3,7 @@ const mongodb = require('mongodb');
 const User = require('../models/user');
 const bcryptjs = require('bcryptjs');
 const jwt = require('../util/jwt');
+const cookieParser = require('cookie-parser');
 
 const ObjectId = mongodb.ObjectId;
 
@@ -22,7 +23,6 @@ exports.postAddUser = (req, res, next) => {
             user.save()
                 .then(user => {
                     res.json(user);
-                    
                 })
                 .catch(err => {
                     console.log(err);
@@ -66,7 +66,6 @@ exports.postEditUser = (req, res, next) => {
     updatedUser.save()
         .then(user => {
             console.log('User updated');
-            res.json({token: jwt.createToken(user)});
         })
         .catch(err => {
             res.json(err);
@@ -95,7 +94,7 @@ exports.postDeleteUser = (req, res, next) => {
 };
 
 exports.loginUser = (req, res) => {
-    User.find(req.body.email)
+    User.findByEmail(req.body.email)
     .then(user => {
         console.log(user)
         if (!user) {
@@ -107,7 +106,11 @@ exports.loginUser = (req, res) => {
                     console.log();
                     res.json({e: 'Password Required'});
                 } else if (match) {
-                    res.json({token: jwt.createToken(user)});
+                    var token = {token: jwt.createToken(user)};
+                    res.cookie('token', token, {
+                        httpOnly: true,
+                    });
+                    // console.log();
                 } else {
                     res.json({error: 'Incorrect Credential'});
                 }
