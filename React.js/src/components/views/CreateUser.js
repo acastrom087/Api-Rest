@@ -1,5 +1,6 @@
 import axios from 'axios';
 import sweet from "sweetalert";
+import './Modal'
 function CreateUser(props) {
 
     const apiUrl = 'http://localhost:3000/user/add-user';
@@ -14,7 +15,11 @@ function CreateUser(props) {
         var gender = document.getElementById("gender").value;
         if(password != rePassword){
             mensaje('The password are diferent','error')
-        }else{
+        }else if(name == '' || email == '' || password == ''){
+            const aviso = document.querySelector('#aviso')
+            aviso.textContent = 'Complete los campos'
+        }
+        else{
             let user ={
                 name:name,
                 lastName: lastName,
@@ -77,6 +82,8 @@ function CreateUser(props) {
                             <input className="form-control" type="text" name="gender" id="gender" />
                         </div>
                         <button className="btn btn-primary" onClick={save} >Add</button>
+                        <br />
+                        <p id='aviso'></p>
                     </div>
                 </div>
             </div>

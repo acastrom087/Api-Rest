@@ -37,8 +37,9 @@ exports.getUser = (req, res, next) => {
         .then(user => {
             if (!user) {
                 res.json({error: 'User not found'})
-            }
+            }else{
             res.json({user})
+        }
             
         });
 };
@@ -51,6 +52,7 @@ exports.postEditUser = (req, res, next) => {
     const updatedPassword = req.body.password;
     const updatedBirthday = req.body.birthday;
     const updatedGender = req.body.gender;
+    
     const updatedUser = new User(
         updatedName,
         updatedLastName,
@@ -67,8 +69,9 @@ exports.postEditUser = (req, res, next) => {
         .catch(err => {
             res.json(err);
         });
+  
     
-};
+}
 
 exports.getUsers = (req, res, next) => {
     User.fetchAll()

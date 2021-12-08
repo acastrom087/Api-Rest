@@ -20,3 +20,7 @@ label{
 .close{
     margin-bottom: 1rem;
 }
+
+#aviso{
+    color: red;
+}

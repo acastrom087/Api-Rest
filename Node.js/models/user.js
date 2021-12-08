@@ -55,6 +55,7 @@ class User {
                 return user;
             })
             .catch(err => {
+                console.log('model error: ' )
                 return err
             })
     }
