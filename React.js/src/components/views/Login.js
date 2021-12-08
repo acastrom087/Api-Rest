@@ -47,6 +47,7 @@ function Login(props) {
       }).then(res => console.log(res))
         .then(response => console.log(response))
         // history.push({pathname: '/home'});
+
     }
     
     const mensaje = (title,type)=> {
