@@ -60,9 +60,8 @@ function CreateAlbum(props) {
             <div className="modal-dialog modal-lg">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">CreateAlbum</h5>
-                        <button type="button" className="close" onClick={props.closeModal} data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                        <h5 className="modal-title" id="exampleModalLabel">Album</h5>
+                        <button type="button" className="btn-close" onClick={props.closeModal} data-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
                     <div className="modal-body">
@@ -76,7 +75,7 @@ function CreateAlbum(props) {
                             <label htmlFor="nombre">Description</label>
                             <input className="form-control" type="text" name="description" id="description" defaultValue={props.album ? props.album.description : ''} />
                         </div>
-                        <button className="btn btn-primary" onClick={Save} >Add</button>
+                        <br/><button className="btn btn-primary" onClick={Save} >Add</button>
                         <br/>
                         <p id='aviso'></p>
                     </div>

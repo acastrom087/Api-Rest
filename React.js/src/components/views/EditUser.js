@@ -48,15 +48,12 @@ function EditUser(props) {
             <div className="modal-dialog modal-lg">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">EditUser</h5>
-                        <button type="button" className="close" onClick={props.closeModal} data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                        <h5 className="modal-title" id="exampleModalLabel">Editar Usuario</h5>
+                        <button type="button" className="btn-close" onClick={props.closeModal} data-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
                     <div className="modal-body">
                         <div className="form-group">
-                            <label htmlFor="id">ID</label>
-                            <input className="form-control" type="text" readOnly="readOnly" name="id" id="id"  />
                             <br />
                             <label htmlFor="nombre">Name</label>
                             <input className="form-control" type="text" name="name" id="name" defaultValue={props.usuario.name} />
@@ -73,7 +70,7 @@ function EditUser(props) {
                             <label htmlFor="nombre">Gender</label>
                             <input className="form-control" type="text" name="gender" id="gender" defaultValue={props.usuario.gender} />
                         </div>
-                        <button className="btn btn-primary" onClick={save} >Edit</button>
+                        <br/><button className="btn btn-primary" onClick={save} >Editar</button>
                         <br/>
                         <p id='aviso'></p>
                     </div>

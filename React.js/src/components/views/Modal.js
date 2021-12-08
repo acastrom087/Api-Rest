@@ -7,9 +7,8 @@ function Modal(props){
         <div className="modal-dialog modal-lg">
             <div className="modal-content">
                 <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLabel">Photo</h5>
-                    <button type="button" className="close" onClick={props.closeModal}  data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <h5 className="modal-title" id="exampleModalLabel">Foto</h5>
+                    <button type="button" className="btn-close" onClick={props.closeModal}  data-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
                 <div className="modal-body">

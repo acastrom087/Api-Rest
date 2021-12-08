@@ -50,16 +50,11 @@ function CreateUser(props) {
             <div className="modal-dialog modal-lg">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">CreateAlbum</h5>
-                        <button type="button" className="close" onClick={props.closeModal} data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <h5 className="modal-title" id="exampleModalLabel">Registarse</h5>
+                        <button type="button" className="btn-close" onClick={props.closeModal} data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
                         <div className="form-group">
-                            <label htmlFor="id">ID</label>
-                            <input className="form-control" type="text" readOnly="readOnly" name="id" id="id" />
-                            <br />
                             <label htmlFor="nombre">Name</label>
                             <input className="form-control" type="text" name="name" id="name" />
                             <br />
@@ -70,10 +65,10 @@ function CreateUser(props) {
                             <input className="form-control" type="text" name="email" id="email" />
                             <br />
                             <label htmlFor="nombre">Password</label>
-                            <input className="form-control" type="text" name="password" id="password" />
+                            <input className="form-control" type="password" name="password" id="password" />
                             <br />
                             <label htmlFor="nombre">RePassword</label>
-                            <input className="form-control" type="text" name="rePassword" id="rePassword" />
+                            <input className="form-control" type="password" name="rePassword" id="rePassword" />
                             <br />
                             <label htmlFor="nombre">birthday</label>
                             <input className="form-control" type="date" name="birthday" id="birthday" />
@@ -81,7 +76,7 @@ function CreateUser(props) {
                             <label htmlFor="nombre">Gender</label>
                             <input className="form-control" type="text" name="gender" id="gender" />
                         </div>
-                        <button className="btn btn-primary" onClick={save} >Add</button>
+                        <br/><button className="btn btn-primary" onClick={save} >Registarse</button>
                         <br />
                         <p id='aviso'></p>
                     </div>

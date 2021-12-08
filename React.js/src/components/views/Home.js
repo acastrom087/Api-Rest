@@ -104,7 +104,7 @@ function Home(props) {
         <React.Fragment>
             <Navigation />
             {editUser  && <EditUser closeModal={closeEditUser} usuario={user}/>}
-            <button  id='settings' onClick={showEditUser} >Settings</button>
+            <button  id='settings' className="btn btn-secondary" onClick={showEditUser} >Settings</button>
             
             {add && <CreateAlbum closeModal={closeModal} album={album} />}
             <br />

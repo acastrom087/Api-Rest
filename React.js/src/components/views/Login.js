@@ -20,10 +20,6 @@ function Login(props) {
   
 
     const closeModal=()=> {
-      axios.get(baseURL).then(response => {
-        setUsers(response.data.users);
-        
-      })
         setModal(false);
     }
 
@@ -37,15 +33,15 @@ function Login(props) {
   
     const validacion = () => {
       axios.post(baseURL, {
-        data: {
           email: document.getElementById('usernameEmail').value,
           password: document.getElementById('password').value
-        }
       }).then(res => {
-        var user = jsonwebtoken.decode(res.data.token, 'fhbfgh615g74d85th4t4454htHTRGTf56fsd56Hg').user
-        console.log(user._id);
+        console.log(res.data.token);
+        var user = jsonwebtoken.decode(res.data.token, 'fhbfgh615g74d85th4t4454htHTRGTf56fsd56Hg').user;
+        console.log(user);
         localStorage.setItem('usuario', user._id);
         localStorage.setItem('nombre', user.name);
+        history.push({pathname: '/home'})
       })
         .catch(err => console.log(err))
       
@@ -53,7 +49,7 @@ function Login(props) {
       //   cookie('token', res, {
       //     httpOnly: true,
       //   }))
-      history.push({pathname: '/home'})
+      
       // console.log();
     }
     
@@ -82,8 +78,8 @@ function Login(props) {
                         <input type="password" className="form-control" id="password" placeholder="Password"></input>
                     </div>
                     <button className="btn btn-primary" onClick={validacion}>Ingresar</button>
-                        <p onClick={showModal}>Sing up</p>
-                        <p onClick={showMail} >Recuperar contraseña</p>
+                    <hr/><button className="btn btn-primary" onClick={showModal}>Registrarse</button>
+                    <br/><button className="btn btn-link" onClick={showMail}>Recuperar contraseña</button>
                 </div>
             </div>
         </div>

@@ -12,6 +12,7 @@ const transporter = nodemailer.createTransport(sendgridTransport({
 exports.sendMail = (req, res, next) => {
     User.findByEmail(req.body.mail)
         .then(user => {
+            console.log(user);
             if (user) {
                 var usuario = new User();
                 usuario._id = user._id
@@ -32,8 +33,8 @@ exports.sendMail = (req, res, next) => {
                             transporter.sendMail({
                                 to: req.body.mail,
                                 from: 'anthony.1960@hotmail.es',
-                                subject: 'Hello from nodeJS',
-                                html: '<h1>Works!</h1>'
+                                subject: 'Change of password',
+                                html: '<h1>Your new password is</h1>' + '<h2>' + generateP() +'</h2>'
                             })
                                 .then(response => {
                                     console.log("response: ", response);

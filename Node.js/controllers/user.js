@@ -93,13 +93,13 @@ exports.postDeleteUser = (req, res, next) => {
 };
 
 exports.loginUser = (req, res) => {
-    User.findByEmail(req.body.data.email)
+    User.findByEmail(req.body.email)
     .then(user => {
         if (!user) {
             res.json({error: 'User not found'});
             
         } else {
-            bcryptjs.compare(req.body.data.password, user.password, function(e, match) {
+            bcryptjs.compare(req.body.password, user.password, function(e, match) {
                 if (e) {
                     res.json({e: 'Incorrect Credential'});
                 } else if (match) {

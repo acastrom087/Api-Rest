@@ -66,16 +66,12 @@ function CreatePhoto(props) {
             <div className="modal-dialog modal-lg">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLabel">Photo</h5>
-                        <button type="button" className="close" onClick={props.closeModal} data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                        <h5 className="modal-title" id="exampleModalLabel">Nueva Foto</h5>
+                        <button type="button" className="btn-close" onClick={props.closeModal} data-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
                     <div className="modal-body">
                         <div className="form-group">
-                            {/* <label htmlFor="id">ID</label>
-                    <input className="form-control" type="text" name="id" id="id" />
-                    <br /> */}
                             <label htmlFor="nombre">Nombre</label>
                             <input className="form-control" type="text" name="name" id="name" defaultValue={props.photo ? props.photo.name : ''} />
                             <br />
@@ -85,7 +81,7 @@ function CreatePhoto(props) {
                             <label htmlFor="nombre">Url</label>
                             <input className="form-control" type="text" name="url" id="url" defaultValue={props.photo ? props.photo.url : ''} />
                         </div>
-                        <button className="btn btn-primary" onClick={save} >Add</button>
+                        <br/><button className="btn btn-primary" onClick={save} >Agregar</button>
                         <p id='aviso'></p>
                     </div>
                 </div>
