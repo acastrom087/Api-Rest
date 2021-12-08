@@ -7,19 +7,11 @@ import Mail from './Mail'
 
 function Login(props) {
    
-    const baseURL = "http://localhost:3000/user/users";
+    const baseURL = "http://localhost:3000/user/login";
     var [users, setUsers] = useState([]);
     var [modal, setModal] = useState(false);
     var [mail, setMail] = useState(false);
     let history = useHistory();
-  
-  
-    useEffect(() => {
-      axios.get(baseURL).then(response => {
-        setUsers(response.data.users);
-        
-      })
-    }, []);
   
     const showModal=()=> {
         setModal(true);
@@ -42,23 +34,19 @@ function Login(props) {
     }
   
     const validacion = () => {
-      var log = false;
-      //console.log(users)
-      var username = document.getElementById("usernameEmail").value;
-      var password = document.getElementById("password").value;
-      var user = null
-      users.map(u => {
-        if ((username === u.name) && password === u.password) {
-          user = u;
-          localStorage.setItem("usuario", user._id)
-          localStorage.setItem("nombre", user.name)
-          log = true;
-          history.push({pathname: '/home', user: u});
+      axios.post(baseURL, {
+        method: 'POST',
+        data: {
+          "email": document.getElementById('usernameEmail').value,
+          "password": document.getElementById('password').value
+        }, 
+        headers: {
+          'origin':'x-requested-with',
+          'Content-Type': 'application/json',
         }
-      })
-      if(!log){
-        mensaje('Password or user incorrect','error')
-      }
+      }).then(res => console.log(res))
+        .then(response => console.log(response))
+        // history.push({pathname: '/home'});
     }
     
     const mensaje = (title,type)=> {
