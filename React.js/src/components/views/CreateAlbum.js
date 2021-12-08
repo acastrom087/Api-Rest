@@ -10,7 +10,6 @@ function CreateAlbum(props) {
     const Save = () => {
         let album = {}
         if (props.album) {
-            console.log(props.album)
             const userId = props.album.userId;
             const id = props.album._id;
             var name = document.getElementById("name").value;
@@ -35,13 +34,17 @@ function CreateAlbum(props) {
                 description: description
             }
         }
-
+        if(album.name =='' || album.description == '') {
+            const aviso = document.querySelector('#aviso')
+            aviso.textContent = 'Complete los campos'
+        }else{
         axios.post(apiUrl, album)
             .then(response => {
                 mensaje(message, 'success')
                 props.closeModal()
             })
             .catch(error => mensaje('Error', 'error'))
+        }
 
     }
     const mensaje = (title, type) => {
@@ -74,6 +77,8 @@ function CreateAlbum(props) {
                             <input className="form-control" type="text" name="description" id="description" defaultValue={props.album ? props.album.description : ''} />
                         </div>
                         <button className="btn btn-primary" onClick={Save} >Add</button>
+                        <br/>
+                        <p id='aviso'></p>
                     </div>
                 </div>
             </div>

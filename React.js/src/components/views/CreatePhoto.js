@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 import sweet from "sweetalert";
-
+import './Modal.css'
 function CreatePhoto(props) {
 
     var apiUrl = ' ';
@@ -39,6 +39,10 @@ function CreatePhoto(props) {
                 url: url
             }
         }
+        if(photo.name =='' || photo.description == ''){
+            const aviso = document.querySelector('#aviso')
+            aviso.textContent = 'Complete los campos'
+        }else{
         console.log(photo)
         axios.post(apiUrl, photo)
             .then(response => {
@@ -46,6 +50,7 @@ function CreatePhoto(props) {
                 props.closeModal()
             })
             .catch(error => mensaje('Error', 'error'))
+        }
     }
 
     const mensaje = (title, type) => {
@@ -81,6 +86,7 @@ function CreatePhoto(props) {
                             <input className="form-control" type="text" name="url" id="url" defaultValue={props.photo ? props.photo.url : ''} />
                         </div>
                         <button className="btn btn-primary" onClick={save} >Add</button>
+                        <p id='aviso'></p>
                     </div>
                 </div>
             </div>

@@ -1,26 +1,26 @@
 import axios from 'axios';
 import sweet from "sweetalert";
+import './Modal'
 function EditUser(props) {
 
     const apiUrl = 'http://localhost:3000/user/edit-user';
-
+    
     const save = () => {
         var name = document.getElementById("name").value;
         var lastName = document.getElementById("lastName").value;
         var email = document.getElementById("email").value;
-        var password = document.getElementById("password").value;
-        var rePassword = document.getElementById("rePassword").value;
         var birthday = document.getElementById("birthday").value;
         var gender = document.getElementById("gender").value;
         var id = props.usuario._id
-        if(password != rePassword){
-            mensaje('The password are diferent','error')
+        if(name == '' || email == ''){
+        const aviso = document.querySelector('#aviso')
+        aviso.textContent = 'Complete los campos'
         }else{
             let user ={
                 name:name,
                 lastName: lastName,
                 email: email,
-                password: password,
+                password: props.usuario.password,
                 birthday: birthday,
                 gender: gender,
                 id
@@ -34,6 +34,7 @@ function EditUser(props) {
                 mensaje('Error', 'error')
             })
         }
+        
 
     }
     const mensaje = (title,type)=> {
@@ -66,12 +67,6 @@ function EditUser(props) {
                             <label htmlFor="nombre">Email</label>
                             <input className="form-control" type="text" name="email" id="email" defaultValue={props.usuario.email} />
                             <br />
-                            <label htmlFor="nombre">Password</label>
-                            <input className="form-control" type="text" name="password" id="password" defaultValue={props.usuario.password} />
-                            <br />
-                            <label htmlFor="nombre">RePassword</label>
-                            <input className="form-control" type="text" name="rePassword" id="rePassword" defaultValue={props.usuario.password} />
-                            <br />
                             <label htmlFor="nombre">birthday</label>
                             <input className="form-control" type="date" name="birthday" id="birthday" defaultValue={props.usuario.birthday} />
                             <br />
@@ -79,6 +74,8 @@ function EditUser(props) {
                             <input className="form-control" type="text" name="gender" id="gender" defaultValue={props.usuario.gender} />
                         </div>
                         <button className="btn btn-primary" onClick={save} >Edit</button>
+                        <br/>
+                        <p id='aviso'></p>
                     </div>
                 </div>
             </div>
