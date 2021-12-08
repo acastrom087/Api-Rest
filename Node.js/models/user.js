@@ -83,17 +83,6 @@ class User {
                 console.log(err);
             });
     }
-
-    static find(data) {
-        const db = getDb();
-        return db.collection('users')
-            .find({email: data})
-            .next()
-            .then(user => {
-                return user;
-            })
-    };
-
 };
 
 module.exports = User;
