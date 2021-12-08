@@ -22,6 +22,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
+    
 });
 
 const mailRoute = require('./routes/mail')
