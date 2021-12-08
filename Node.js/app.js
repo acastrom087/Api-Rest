@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 
 const errorController = require('./controllers/error');
 const mongoConnect = require('./util/database').mongoConnect;
@@ -13,6 +14,12 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
 app.use(cookieParser());
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {maxAge: 1000 * 60 * 60 * 24, secure: false}
+}))
 
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -22,7 +29,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
-    
+
 });
 
 const mailRoute = require('./routes/mail')
@@ -34,6 +41,7 @@ app.use('/mail', mailRoute);
 app.use('/user', userRoutes);
 app.use('/album', albumRoutes);
 app.use('/photo', photoRoutes);
+
 
 
 

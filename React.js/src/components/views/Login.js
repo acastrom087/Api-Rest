@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import sweet from "sweetalert";
-import Mail from './Mail'
+import Mail from './Mail';
+import jsonwebtoken from 'jsonwebtoken';
 
 function Login(props) {
    
@@ -16,6 +17,7 @@ function Login(props) {
     const showModal=()=> {
         setModal(true);
     }
+  
 
     const closeModal=()=> {
       axios.get(baseURL).then(response => {
@@ -35,18 +37,24 @@ function Login(props) {
   
     const validacion = () => {
       axios.post(baseURL, {
-        method: 'POST',
         data: {
-          "email": document.getElementById('usernameEmail').value,
-          "password": document.getElementById('password').value
-        }, 
-        headers: {
-          'origin':'x-requested-with',
-          'Content-Type': 'application/json',
+          email: document.getElementById('usernameEmail').value,
+          password: document.getElementById('password').value
         }
-      }).then(res => console.log(res))
-        .then(response => console.log(response))
-        // history.push({pathname: '/home'});
+      }).then(res => {
+        var user = jsonwebtoken.decode(res.data.token, 'fhbfgh615g74d85th4t4454htHTRGTf56fsd56Hg').user
+        console.log(user._id);
+        localStorage.setItem('usuario', user._id);
+        localStorage.setItem('nombre', user.name);
+      })
+        .catch(err => console.log(err))
+      
+
+      //   cookie('token', res, {
+      //     httpOnly: true,
+      //   }))
+      history.push({pathname: '/home'})
+      // console.log();
     }
     
     const mensaje = (title,type)=> {

@@ -3,7 +3,6 @@ const mongodb = require('mongodb');
 const User = require('../models/user');
 const bcryptjs = require('bcryptjs');
 const jwt = require('../util/jwt');
-const cookieParser = require('cookie-parser');
 
 const ObjectId = mongodb.ObjectId;
 
@@ -91,23 +90,17 @@ exports.postDeleteUser = (req, res, next) => {
 };
 
 exports.loginUser = (req, res) => {
-    User.findByEmail(req.body.email)
+    User.findByEmail(req.body.data.email)
     .then(user => {
-        console.log(user)
         if (!user) {
-            res.json({error: 'Incorrect Credential'});
+            res.json({error: 'User not found'});
             
         } else {
-            bcryptjs.compare(req.body.password, user.password, function(e, match) {
+            bcryptjs.compare(req.body.data.password, user.password, function(e, match) {
                 if (e) {
-                    console.log();
-                    res.json({e: 'Password Required'});
+                    res.json({e: 'Incorrect Credential'});
                 } else if (match) {
-                    var token = {token: jwt.createToken(user)};
-                    res.cookie('token', token, {
-                        httpOnly: true,
-                    });
-                    // console.log();
+                    res.json({token: jwt.createToken(user)});
                 } else {
                     res.json({error: 'Incorrect Credential'});
                 }

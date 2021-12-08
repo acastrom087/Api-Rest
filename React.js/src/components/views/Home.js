@@ -18,7 +18,7 @@ function Home(props) {
     const id = localStorage.getItem('usuario');
     
     const usuario = props.location.user
-    console.log(usuario)
+    // console.log(usuario)
 
     if (!id) window.location.href = '/';
 
