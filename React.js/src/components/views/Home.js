@@ -13,12 +13,21 @@ function Home(props) {
     const [add, setAdd] = useState(false);
     const [album, setAlbum] = useState([])
     const [editUser, setEditUser] = useState(false);
+    const [user, setUser] = useState([])
+
 
     const deleteUrl = 'http://localhost:3000/album/delete-album'
     const id = localStorage.getItem('usuario');
     
-    const usuario = props.location.user
-    console.log(usuario)
+   
+
+    function cargarUsuario  () {
+        var usuario = {}
+        axios.get('http://localhost:3000/user/user/'+id)
+        .then(response=> setUser(response.data.user) )      
+        .catch(err=>{mensaje('Error', 'error')})
+        return usuario
+    }
 
     if (!id) window.location.href = '/';
 
@@ -75,10 +84,12 @@ function Home(props) {
          })
         }
     const showEditUser =()=>{
+        cargarUsuario()
         setEditUser(true);
     }
 
     const closeEditUser =()=>{
+        cargarUsuario()
         setEditUser(false);
     }
     
@@ -87,12 +98,12 @@ function Home(props) {
                 'icon': type,
                 })
     }
-    
+  
 
     return (
         <React.Fragment>
             <Navigation />
-            {editUser && <EditUser closeModal={closeEditUser} usuario={usuario}/>}
+            {editUser  && <EditUser closeModal={closeEditUser} usuario={user}/>}
             <button  id='settings' onClick={showEditUser} >Settings</button>
             
             {add && <CreateAlbum closeModal={closeModal} album={album} />}

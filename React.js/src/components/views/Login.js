@@ -53,7 +53,7 @@ function Login(props) {
           localStorage.setItem("usuario", user._id)
           localStorage.setItem("nombre", user.name)
           log = true;
-          history.push({pathname: '/home', user: u});
+          history.push({pathname: '/home'});
         }
       })
       if(!log){
