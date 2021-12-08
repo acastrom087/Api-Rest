@@ -36,12 +36,14 @@ function Login(props) {
           email: document.getElementById('usernameEmail').value,
           password: document.getElementById('password').value
       }).then(res => {
-        console.log(res.data.token);
-        var user = jsonwebtoken.decode(res.data.token, 'fhbfgh615g74d85th4t4454htHTRGTf56fsd56Hg').user;
-        console.log(user);
+        if(!res.data){
+          mensaje('Datos incorrectos', 'error')
+        }else{
+        var user = jsonwebtoken.decode(res.data.token, 'fhbfgh615g74d85th4t4454htHTRGTf56fsd56Hg').user
         localStorage.setItem('usuario', user._id);
         localStorage.setItem('nombre', user.name);
         history.push({pathname: '/home'})
+      }
       })
         .catch(err => console.log(err))
       
@@ -49,7 +51,6 @@ function Login(props) {
       //   cookie('token', res, {
       //     httpOnly: true,
       //   }))
-      
       // console.log();
     }
     

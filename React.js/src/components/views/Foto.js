@@ -102,7 +102,7 @@ function Foto(props) {
                 <thead>
                     <tr>
                         <th scope="col">Photo Title</th>
-                        <th scope="col">ThumbnailUrl</th>
+                        <th scope="col">Photo</th>
                         <th scope="col">Open Photo</th>
 
 

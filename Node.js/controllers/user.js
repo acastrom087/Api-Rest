@@ -64,7 +64,7 @@ exports.postEditUser = (req, res, next) => {
     );
     updatedUser.save()
         .then(user => {
-            console.log('User updated');
+            res.json(user);
         })
         .catch(err => {
             res.json(err);
@@ -96,16 +96,16 @@ exports.loginUser = (req, res) => {
     User.findByEmail(req.body.email)
     .then(user => {
         if (!user) {
-            res.json({error: 'User not found'});
+            res.json(null);
             
         } else {
             bcryptjs.compare(req.body.password, user.password, function(e, match) {
                 if (e) {
-                    res.json({e: 'Incorrect Credential'});
+                    res.json(null);
                 } else if (match) {
                     res.json({token: jwt.createToken(user)});
                 } else {
-                    res.json({error: 'Incorrect Credential'});
+                    res.json(null);
                 }
             });
         }
