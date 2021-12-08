@@ -42,10 +42,14 @@ function Login(props) {
           password: document.getElementById('password').value
         }
       }).then(res => {
+        if(!res.data){
+          mensaje('Datos incorrectos', 'error')
+        }else{
         var user = jsonwebtoken.decode(res.data.token, 'fhbfgh615g74d85th4t4454htHTRGTf56fsd56Hg').user
-        console.log(user._id);
         localStorage.setItem('usuario', user._id);
         localStorage.setItem('nombre', user.name);
+        history.push({pathname: '/home'})
+      }
       })
         .catch(err => console.log(err))
       
@@ -53,7 +57,6 @@ function Login(props) {
       //   cookie('token', res, {
       //     httpOnly: true,
       //   }))
-      history.push({pathname: '/home'})
       // console.log();
     }
     

@@ -14,6 +14,7 @@ exports.sendMail = (req, res, next) => {
         .then(user => {
             if (user) {
                 var usuario = new User();
+                newPassword = generateP()
                 usuario._id = user._id
                 usuario.name = user.name
                 usuario.lastName = user.lastName
@@ -21,7 +22,7 @@ exports.sendMail = (req, res, next) => {
                 usuario.birthday = user.birthday
                 usuario.gender = user.gender
                 console.log(usuario)
-                bcryptjs.hash(generateP(), 10, (e, hash) => {
+                bcryptjs.hash(newPassword, 10, (e, hash) => {
                     if (e) {
                         res.json('Error')
                     }else{
@@ -32,14 +33,13 @@ exports.sendMail = (req, res, next) => {
                             transporter.sendMail({
                                 to: req.body.mail,
                                 from: 'anthony.1960@hotmail.es',
-                                subject: 'Hello from nodeJS',
-                                html: '<h1>Works!</h1>'
+                                subject: 'New password',
+                                html: newPassword
                             })
                                 .then(response => {
-                                    console.log("response: ", response);
                                     res.json({ yes: true });
                                 })
-                                .catch(err => console.log(err));
+                                .catch(err => res.json(err));
                         })
                         .catch(err => res.json(err))
                     }
